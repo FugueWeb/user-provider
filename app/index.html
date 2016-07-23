@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>User Provider</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href="./app.css" rel='stylesheet' type='text/css'>
+  <script src="./app.js"></script>
+</head>
+<body>
+  <div class="container-fluid">
+    <h1><img src="images/ethereum.png" alt="Ethereum"> User - Provider dApp</h1>
+    <table class="table table-fluid">
+      <tr>
+        <th></th>
+        <th>Address</th>
+        <th>Balance</th>
+      </tr>
+      <tr>
+        <th>Provider Contract</th>
+        <td><span class="black"><span id="c_address" class="c_address"></span></span></td>
+        <td><span class="black"><span id="c_balance"></span> ETH</span></td>
+      </tr>
+      <tr>
+        <th>User Contract</th>
+        <td><span class="black"><span id="a_address" class="a_address"></span></span></td>
+        <td><span class="black"><span id="a_balance"></span> ETH</span></td>
+      </tr>
+    </table>
+    <div class="col-lg-12" style="padding-top: 10px;">Coinbase Balance: <span id="cb_balance"></span></div>
+    <div class="col-lg-12" id="status"></div>
+
+    <div class="row">
+
+      <div class="col-lg-6 payment payment-web">
+        <form class="form-horizontal">
+        <fieldset>
+
+        <!-- Form Name -->
+        <legend>User Contract</legend>
+
+        <!-- Prepended text-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="prependedtext">Register Provider</label>
+          <div class="col-md-5">
+            <div class="input-group">
+              <span class="input-group-addon">address</span>
+              <input id="registerProviderText" name="prependedtext" class="form-control" placeholder="" type="text">
+            </div>
+            <p class="help-block">registerProvider( )</p>
+          </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="registerbtn"></label>
+          <div class="col-md-4">
+            <button id="registerbtn" onclick="userFunction('registerProvider')" type="button" name="registerbtn" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+
+        <!-- Prepended text-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="prependedtext">Pay Provider</label>
+          <div class="col-md-5">
+            <div class="input-group">
+              <span class="input-group-addon">address</span>
+              <input id="payProviderText" name="prependedtext" class="form-control" placeholder="" type="text">
+            </div>
+            <p class="help-block">payToProvider( )</p>
+          </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="paybtn"></label>
+          <div class="col-md-4">
+            <button id="paybtn" type="button" onclick="userFunction('payToProvider')" name="paybtn" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+
+
+        <!-- Prepended text-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="prependedtext">Unsubscribe</label>
+          <div class="col-md-5">
+            <div class="input-group">
+              <span class="input-group-addon">address</span>
+              <input id="unsubscribeText" name="prependedtext" class="form-control" placeholder="" type="text">
+            </div>
+            <p class="help-block">unsubscribe( )</p>
+          </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="unsubscribebtn"></label>
+          <div class="col-md-4">
+            <button id="unsubscribebtn" onclick="userFunction('unsubscribe')" type="button" name="unsubscribebtn" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+        </fieldset>
+        </form>
+      </div>
+
+      <div class="col-lg-6 payment payment-web">
+        <form class="form-horizontal">
+        <fieldset>
+
+        <!-- Form Name -->
+        <legend>Provider Contract</legend>
+
+        <!--<div class="form-group">
+          <label class="col-md-4 control-label" for="providerName">Create Provider</label>
+          <div class="col-md-5">
+            <div class="input-group">
+              <span class="input-group-addon">string</span>
+              <input id="providerName" name="providerName" class="form-control" placeholder="name" type="text">
+            </div>
+            <p class="help-block">Provider - Constructor</p>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="descriptiontext"></label>
+          <div class="col-md-5">
+            <div class="input-group">
+              <span class="input-group-addon">string</span>
+              <input id="providerDescription" name="providerDescription" class="form-control" placeholder="description" type="text">
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="registerProviderbutton"></label>
+          <div class="col-md-4">
+            <button id="registerProviderbutton" onclick="createProvider()" type="button" name="registerProviderbutton" class="btn btn-primary">Send</button>
+          </div>
+        </div>-->
+
+        <!-- Prepended text-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="setDebtAddr">Set Debt</label>
+          <div class="col-md-5">
+            <div class="input-group">
+              <span class="input-group-addon">address</span>
+              <input id="setDebtAddr" name="setDebtAddr" class="form-control" placeholder="User Address" type="text">
+            </div>
+            <p class="help-block">setDebt( )</p>
+          </div>
+        </div>
+
+        <!-- Prepended text-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="debtAmount"></label>
+          <div class="col-md-5">
+            <div class="input-group">
+              <span class="input-group-addon">uint256</span>
+              <input id="debtAmount" name="debtAmount" class="form-control" placeholder="Amount owed" type="text">
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="setDebtbutton"></label>
+          <div class="col-md-4">
+            <button id="setDebtButton" type="button" onclick="setDebt()" name="setDebtButton" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+
+        </fieldset>
+        </form>
+
+      </div>
+    </div><!-- end forms -->
+
+    <table class="table table-fluid" id="transaction-table">
+      <tr>
+        <th>Transaction Info</th>
+      </tr>
+    </table>
+
+    <div class="row">
+      <!--<h2 style="text-align: center; padding-top: 20px; color: red;">Kill Switch</h2>
+
+      <div class="col-lg-6">
+        <div class="form-inline">
+          <label>Are you sure?
+            <input type="checkbox" id="blankCheckbox" value="option1" onchange="killSwitch()">
+          </label>
+          <button id="killbutton" class="btn btn-danger btn-lg" onclick="killContract()" disabled>Kill</button>
+        </div>
+      </div>-->
+      <div class="col-lg-12">
+        <h2>Available address</h2>
+        <select class="form-control" id="select-box">
+        </select>
+      </div>
+    </div>
+
+  </div>
+  <!-- Latest compiled and minified JavaScript -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
+</body>
+</html>
