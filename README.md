@@ -2,7 +2,7 @@
 
 Requires [Truffle 2.0](http://truffle.readthedocs.io/en/latest/getting_started/installation/) and NodeJS
 
-Front end for Ethereum video tutorial from [shlomi zeltsinger](https://www.youtube.com/channel/UCi9Mf3veSDDIMdGGtPmPu1g). Model for a user to interact with a provider service, for instance, a client (user) registering an account with an electric company (provider). The provider can then set the debt of the user for services, and the user can pay that debt and unsubscribe when they have a 0 balance. The dApp also shows what addresses are available in the running `geth` node, balances, and some basic transaction information.
+Front end for Ethereum video tutorial from [shlomi zeltsinger](https://www.youtube.com/channel/UCi9Mf3veSDDIMdGGtPmPu1g) - @Shultzi. Model for a user to interact with a provider service, for instance, a client (user) registering an account with an electric company (provider). The provider can then set the debt of the user for services, and the user can pay that debt and unsubscribe when they have a 0 balance. The dApp also shows what addresses are available in the running `geth` node, balances, and some basic transaction information.
 
 ## Getting started
 
