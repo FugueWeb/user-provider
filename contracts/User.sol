@@ -36,7 +36,7 @@ contract User is mortal {
 	// array of Service structs
 	mapping(address => Service) public services;
 
-	function getUserServices(address _providerAddress) returns (bool a, uint b, uint256 c) {
+	function getUserServices(address _providerAddress) constant returns (bool a, uint b, uint256 c) {
 		a = services[_providerAddress].active;
 		b = services[_providerAddress].lastUpdate;
 		c = services[_providerAddress].debt;

@@ -11,8 +11,8 @@ function setStatus(message) {
 };
 
 function setAddress() {
-  document.getElementById("c_address").innerHTML = Provider.deployed_address;
-  document.getElementById("a_address").innerHTML = User.deployed_address;
+  document.getElementById("p_address").innerHTML = Provider.deployed().address;
+  document.getElementById("u_address").innerHTML = User.deployed().address;
 
 }
 
@@ -86,8 +86,8 @@ function setDebt(){
 }
 
 function refreshBalances() {
-  document.getElementById("c_balance").innerHTML = web3.fromWei(web3.eth.getBalance(Provider.deployed_address), "ether").toFixed(5);
-  document.getElementById("a_balance").innerHTML = web3.fromWei(web3.eth.getBalance(document.getElementById("a_address").innerHTML), "ether").toFixed(5);
+  document.getElementById("p_balance").innerHTML = web3.fromWei(web3.eth.getBalance(Provider.deployed().address), "ether").toFixed(5);
+  document.getElementById("u_balance").innerHTML = web3.fromWei(web3.eth.getBalance(User.deployed().address), "ether").toFixed(5);
   document.getElementById("cb_balance").innerHTML = web3.fromWei(web3.eth.getBalance(web3.eth.coinbase), "ether").toFixed(5)+ " ETH";
 };
 
@@ -121,7 +121,7 @@ function killSwitch(){
 }
 
 function getUserServices(){
-  var userServices = user.getUserServices.call(User.deployed_address, {from:account})
+  var userServices = user.getUserServices.call(User.deployed().address, {from:account})
   .then(function(userData){
     console.log(userData);
   }).catch(function(error){
@@ -130,7 +130,7 @@ function getUserServices(){
 }
 
 function getProviderInfo(){
-  var providerInfo = provider.getProviderInfo.call(Provider.deployed_address, {from:account})
+  var providerInfo = provider.getProviderInfo.call(Provider.deployed().address, {from:account})
   .then(function(data){
     console.log(data);
   }).catch(function(error){
