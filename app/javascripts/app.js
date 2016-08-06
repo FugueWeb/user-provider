@@ -26,11 +26,13 @@ function userFunction(arg){
           user.registerProvider(sendToAddress, {from:accounts[0]}).then(function(result){
             console.log(result);
             transactionReceipt(result, "User registered with provider - Tx: " + result);
-            getUserServices();
+            setStatus("Transaction complete!");
+            checkUserStatus();
             refreshBalances();
           }).catch(function(error){
             console.log(error);
-            setStatus(error);
+            setStatus('');
+            transactionReceipt(null, '<span class="error">Error registering User. You may already be registered to Provider. See console</span>');
           });;
           break;
       case "payToProvider":
@@ -39,9 +41,12 @@ function userFunction(arg){
           user.payToProvider(sendToAddress, {from: accounts[0]}).then(function(result){
             console.log(result);
             transactionReceipt(result, "User paid provider - Tx: " + result);
+            checkUserStatus();
+            refreshBalances();
           }).catch(function(error){
             console.log(error);
-            setStatus(error);
+            setStatus('');
+            transactionReceipt(null, '<span class="error">Error paying Provider. See console</span>');
           });
           break;
       case "unsubscribe":
@@ -49,14 +54,33 @@ function userFunction(arg){
           user.unsubscribe(sendToAddress, {from: accounts[0]}).then(function(result){
             console.log(result);
             transactionReceipt(result, "User unsubscribed - Tx: " + result);
+            setStatus("Transaction complete!");
+            checkUserStatus();
           }).catch(function(error){
             console.log(error);
-            setStatus(error);
+            setStatus('');
+            transactionReceipt(null, '<span class="error">Error unsubscribing User. You may have debt to Provider. See console</span>');
           });
           break;
       default:
           console.log("Error with User contract");
   }
+}
+
+function timeConverter(UNIX_timestamp){
+  if (UNIX_timestamp == 0){
+    return null;
+  }
+  var a = new Date(UNIX_timestamp * 1000);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes();
+  var sec = a.getSeconds() < 10 ? '0' + a.getSeconds() : a.getSeconds();
+  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+  return time;
 }
 
 // function createProvider(){
@@ -75,11 +99,31 @@ function userFunction(arg){
 function setDebt(){
   var userDebtAddr = document.getElementById("setDebtAddr").value;
   var userDebt = document.getElementById("debtAmount").value;
-  console.log(userDebtAddr, userDebt);
 
-  Provider.deployed().setDebt(userDebtAddr, userDebt, {from:accounts[0]}).then(function(result){
+  provider.setDebt(userDebtAddr, userDebt, {from:accounts[0]}).then(function(result){
     console.log(result);
-    transactionReceipt(result, "New Provider contract deployed at " + result);
+    transactionReceipt(result, "Provider set user debt. Tx: " + result);
+    setStatus("Transaction complete!");
+    checkUserStatus();
+  }).catch(function(error){
+    console.log(error);
+  });
+}
+
+function checkUserStatus() {
+  user.services(provider.address).then(function(result){
+    console.log(result)
+    var formattedTime = timeConverter(result[1]);
+    transactionReceipt(result, "User registered with provider: <strong>" + result[0] + "</strong> | Last update: <strong>" + formattedTime + "</strong> | Debt: <strong>" + result[2]) + "</strong>";
+  }).catch(function(error){
+    console.log(error);
+  });
+}
+
+function checkProviderStatus() {
+  provider.providerName().then(function(result){
+    console.log(result)
+    //transactionReceipt(result, "User registered with provider: <strong>" + result[0] + "</strong> | Last update: <strong>" + formattedTime + "</strong> | Debt: <strong>" + result[2]) + "</strong>";
   }).catch(function(error){
     console.log(error);
   });
@@ -98,7 +142,6 @@ function transactionDetails(text) {
 
 function transactionReceipt(result, text){
   console.log(result);
-  setStatus("Transaction complete!");
   refreshBalances();
   transactionDetails(text);
 }
@@ -118,24 +161,6 @@ function killSwitch(){
   }else {
     document.getElementById('killbutton').disabled = true;
   }
-}
-
-function getUserServices(){
-  var userServices = user.getUserServices.call(User.deployed().address, {from:account})
-  .then(function(userData){
-    console.log(userData);
-  }).catch(function(error){
-    console.log(error);
-  });
-}
-
-function getProviderInfo(){
-  var providerInfo = provider.getProviderInfo.call(Provider.deployed().address, {from:account})
-  .then(function(data){
-    console.log(data);
-  }).catch(function(error){
-    console.log(error);
-  });
 }
 
 window.onload = function() {
@@ -162,8 +187,7 @@ window.onload = function() {
     accounts = accs;
     account = accounts[0];
 
-    getUserServices();
-    getProviderInfo();
+    checkUserStatus();
     setAddress();
     refreshBalances();
   });

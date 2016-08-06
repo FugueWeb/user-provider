@@ -1,23 +1,4 @@
-contract mortal {
-
-	address public owner;
-
-	function mortal(){
-		owner = msg.sender;
-	}
-
-	modifier onlyOwner {
-		if (msg.sender != owner){
-			throw;
-		} else {
-			_
-		}
-	}
-
-	function kill() onlyOwner{
-		suicide(owner);
-	}
-}
+import "./mortal.sol";
 
 contract User is mortal {
 
@@ -36,13 +17,11 @@ contract User is mortal {
 	// array of Service structs
 	mapping(address => Service) public services;
 
-	function getUserServices(address _providerAddress) constant returns (bool a, uint b, uint256 c) {
-		a = services[_providerAddress].active;
-		b = services[_providerAddress].lastUpdate;
-		c = services[_providerAddress].debt;
-	}
-
 	function registerProvider(address _providerAddress) onlyOwner {
+		if(services[_providerAddress].active){
+			throw;
+		}
+
 		services[_providerAddress] = Service({
 			active: true,
 			lastUpdate: now,
@@ -67,6 +46,7 @@ contract User is mortal {
 	function unsubscribe(address _providerAddress){
 		if(services[_providerAddress].debt == 0){
 			services[_providerAddress].active = false;
+			services[_providerAddress].lastUpdate = now;
 			} else {
 				throw;
 		}

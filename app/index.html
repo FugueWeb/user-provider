@@ -161,7 +161,7 @@
           <div class="col-md-5">
             <div class="input-group">
               <span class="input-group-addon">uint256</span>
-              <input id="debtAmount" name="debtAmount" class="form-control" placeholder="Amount owed" type="text">
+              <input id="debtAmount" name="debtAmount" class="form-control" placeholder="Total amount owed" type="text">
             </div>
 
           </div>
@@ -174,6 +174,23 @@
             <button id="setDebtButton" type="button" onclick="setDebt()" name="setDebtButton" class="btn btn-primary">Send</button>
           </div>
         </div>
+
+        <hr>
+
+        <!-- Check User and Provider Information -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="checkUserStatusButton">Check User Status</label>
+          <div class="col-md-4">
+            <button id="checkUserStatusButton" type="button" onclick="checkUserStatus()" name="checkUserStatusButton" class="btn btn-info">Check</button>
+          </div>
+        </div>
+
+        <!--<div class="form-group">
+          <label class="col-md-4 control-label" for="checkProviderStatusButton">Check Provider Status</label>
+          <div class="col-md-4">
+            <button id="checkProviderStatusButton" type="button" onclick="checkProviderStatus()" name="checkProviderStatusButton" class="btn btn-info">Check</button>
+          </div>
+        </div>-->
 
         </fieldset>
         </form>
